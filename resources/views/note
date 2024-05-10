@@ -1,0 +1,6 @@
+> https://medium.com/@microDesignn/integrate-stripe-in-laravel-10-via-laravel-cashier-4da7b220fddb
+. Add stripe key in env
+. Cashier. Install Laravel 10
+   -> composer require laravel/cashier 
+   -> php artisan cashier:table
+   -> php artisan migrate
