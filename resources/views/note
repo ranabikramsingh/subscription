@@ -1,6 +1,14 @@
 > https://medium.com/@microDesignn/integrate-stripe-in-laravel-10-via-laravel-cashier-4da7b220fddb
 . Add stripe key in env
 . Cashier. Install Laravel 10
-   -> composer require laravel/cashier 
-   -> php artisan cashier:table
-   -> php artisan migrate
+-> composer require laravel/cashier
+-> php artisan cashier:table
+-> php artisan migrate
+. use Laravel\Cashier\Billable;
+. php artisan make:model Subscription (migration is already define)
+-> use Laravel\Cashier\Subscription as BaseSubscription; [for add custom name of Subscription model]
+-> class Subscription extends BaseSubscription{}
+-> $table->foreignId('plan_id')->nullable(); // if needed in migration
+. Create form for create subscriptionPlan
+-> make controller and make traits and create product_id and price_id , recurring
+. Create cashier.php and cashier.php  file in config Folder and define key
