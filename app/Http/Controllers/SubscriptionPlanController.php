@@ -37,7 +37,7 @@ class SubscriptionPlanController extends Controller
     public function store($request, SubscriptionPlan $id = null)
     {
         // @dd($request->subs_ID);
-        @dd($request);
+        // @dd($request);
         // Assuming $request is an instance of Illuminate\Http\Request
         $validator = Validator::make($request, [
             'name' => 'required|string',
@@ -83,7 +83,7 @@ class SubscriptionPlanController extends Controller
 
 
             $id = request()->input('subs_id', null);
-            @dd($request->id);
+            // @dd($request->id);
             if ($id) {
                 $this->updateSubscription($request, $id);
                 return response()->json([

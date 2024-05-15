@@ -144,18 +144,11 @@
         // subscription.js
         // previous code
         $(document).ready(function() {
-           
-
+            
             $.validator.addMethod("decimalMaxTwo", function(value, element) {
                 return /^\d+(\.\d{1,2})?$/.test(value);
                 }, "Please enter a valid number with maximum two decimal places.");
-
-                $.validator.addMethod("requiredSummernote", function() {
-                    return !($("#summernote").summernote('isEmpty'));
-                }, 'Summernote field is required');
-
-            var validator = $("#addSubscriptionForm").validate({
-                ignore:':hidden:not(#summernote)',
+                var validator = $("#addSubscriptionForm").validate({
                 rules: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendRules()) }},
                 messages: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendMessages()) }},
                 submitHandler: function(form) {
@@ -164,22 +157,44 @@
                     }, function() {
                         console.log("LAST ERROR");
                     });
-                },
-                errorPlacement: function (label, element) {
-                     if( jQuery(element).hasClass('summernote-textarea') ){
-                        label.insertAfter( $(element).parent() )
-                    } else {
-                        label.insertAfter(element)
-                    }
                 }
             });
+
+            // $.validator.addMethod("decimalMaxTwo", function(value, element) {
+            //     return /^\d+(\.\d{1,2})?$/.test(value);
+            //     }, "Please enter a valid number with maximum two decimal places.");
+
+            //     $.validator.addMethod("requiredSummernote", function() {
+            //         return !($("#summernote").summernote('isEmpty'));
+            //     }, 'Summernote field is required');
+
+            // var validator = $("#addSubscriptionForm").validate({
+            //     ignore:':hidden:not(#summernote)',
+            //     rules: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendRules()) }},
+            //     messages: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendMessages()) }},
+            //     submitHandler: function(form) {
+            //         alert('here');
+            //         submit_ajax_form(form).then(function() {
+            //             console.log("LAST SUCCESS");
+            //         }, function() {
+            //             console.log("LAST ERROR");
+            //         });
+            //     },
+            //     errorPlacement: function (label, element) {
+            //          if( jQuery(element).hasClass('summernote-textarea') ){
+            //             label.insertAfter( $(element).parent() )
+            //         } else {
+            //             label.insertAfter(element)
+            //         }
+            //     }
+            // });
 
             // Fetch Data for edit
             $('.edit-user').on('click', function(event) {
                 event.preventDefault();
-
                 var subsID = $(this).data('subscription-id');
                 var url = "{{ route('subscriptions.add', ['id' => '']) }}/" + subsID;
+                alert(url);
                 handleAjaxRequest(url, 'GET', {
                     "subs_ID": subsID,
                 }).then(function(response) {

@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-// use App\Http\Traits\Encryptable;
+use App\Http\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SubscriptionPlan extends Model
 {
-    use HasFactory;
+    use HasFactory, Encryptable;
     protected $fillable = [
         'user_id',
         'name',

@@ -21,17 +21,14 @@ class BaseFormRequest extends FormRequest
         $exceptionObject = (new $exception($validator))
             ->errorBag($this->errorBag)
             ->redirectTo($this->getRedirectUrl());
-        /*if (request()->expectsJson()) {
+        if (request()->expectsJson()) {
             $exceptionObject->response = response()->json([
                 'message'   => $exceptionObject->validator->errors()->all()[0],
                 'status'    => false,
                 'data'      => $exceptionObject->errors()
             ]);
         }
-        throw $exceptionObject;*/
-        if ($exceptionObject->fails()) {
-            // If validation fails, return back with errors
-            return redirect()->back()->withErrors($exceptionObject)->withInput();
-        }
+        throw $exceptionObject;
     }
+
 }

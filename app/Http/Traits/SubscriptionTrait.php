@@ -38,10 +38,10 @@ trait SubscriptionTrait
             throw new Exception($th->getMessage());
         }
     }
-
+    
+    // call from subbscripctionPlanController for update plan
     private function updateSubscription(Request $request,  $id)
     {
-
         try {
             $SubscriptionPlan = SubscriptionPlan::findSecureOrFail($id);
             $product = $this->updateProduct($request, $SubscriptionPlan);

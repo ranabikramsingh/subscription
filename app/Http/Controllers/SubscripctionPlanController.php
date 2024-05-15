@@ -34,9 +34,9 @@ class SubscripctionPlanController extends Controller
 
     public function store(SubscriptionRequest $request, SubscriptionPlan $id = null)
     {
-        // @dd($request);
         try {
             if ($request->method() == 'GET' && $request->subs_ID) {
+    
                 $planDetails = SubscriptionPlan::find($request->subs_ID);
                 return response()->json([
                     'status'    =>  true,
@@ -52,9 +52,10 @@ class SubscripctionPlanController extends Controller
             }
 
             // Validation rules
-
+          
             $id = request()->input('subs_id', null);
             if ($id) {
+                dd($id);
                 $this->updateSubscription($request, $id);
                 return response()->json([
                     'status'    =>  true,
@@ -65,6 +66,7 @@ class SubscripctionPlanController extends Controller
                     ]
                 ]);
             } else {
+                // @dd($request);
                 $subscriptionPlan = $this->addSubscription($request);
                 return response()->json([
                     'status'    =>  true,

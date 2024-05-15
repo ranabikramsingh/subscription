@@ -54,6 +54,10 @@ trait StripeTrait
             ];
             $updatedPrice = (float)($request->is_free ? 0 : $request->price);
             $updatedIntervalCount = $request->interval;
+            // <> is an inequality operator in many programming languages, including PHP. It is used to check if two values are not equal !=.
+
+            // if ($subscriptionPlan->price != $updatedPrice || $subscriptionPlan->interval_count != $updatedIntervalCount) {}
+
             if ($subscriptionPlan->price <> $updatedPrice || $subscriptionPlan->interval_count <> $updatedIntervalCount) {
                 $price =  $this->setupStripe()->prices->create([
                     'currency' => config('cashier.currency'),

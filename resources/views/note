@@ -11,4 +11,6 @@
 -> $table->foreignId('plan_id')->nullable(); // if needed in migration
 . Create form for create subscriptionPlan
 -> make controller and make traits and create product_id and price_id , recurring
-. Create cashier.php and cashier.php  file in config Folder and define key
+. Create cashier.php and cashier.php file in config Folder and define key
+
+. $this->setupStripe()->prices->create()  call this function when creat/update plan 
