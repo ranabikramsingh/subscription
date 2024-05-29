@@ -7,6 +7,7 @@ use App\Models\{User, UserDetail, SubscriptionPlan, Subscription};
 use Illuminate\Support\Facades\{Hash, Validator, Auth};
 use App\Http\Traits\SubscriptionTrait;
 use App\Http\Requests\SubscriptionRequest;
+use Illuminate\Support\Facades\Log;
 use Stripe\Stripe;
 
 use Illuminate\Http\Request;
@@ -55,6 +56,7 @@ class SubscripctionPlanController extends Controller
           
             $id = request()->input('subs_id', null);
             if ($id) {
+                // Log::info($request->toArray());
                 dd($id);
                 $this->updateSubscription($request, $id);
                 return response()->json([
