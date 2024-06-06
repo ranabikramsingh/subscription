@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\BasicUserController;
-use App\Http\Controllers\Common\SubscriptionController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Common\UserController;
+use App\Http\Controllers\UserController;
 
 Route::middleware(['auth'])->group(function () {
     /* Route for managing users */
@@ -19,11 +19,13 @@ Route::middleware(['auth'])->group(function () {
 
     //* managing noSubscription Users
     //* for buying subscription
-    Route::prefix('subscription')->controller(SubscriptionController::class)->name("subscription.")->group(function () {
+
+    /*Route::prefix('subscription')->controller(SubscriptionController::class)->name("subscription.")->group(function () {
         Route::get('/subscription-plans', 'SubscriptionPlans')->name('subscription.plans');
         Route::get('/payment-method/{id?}', 'paymentMethod')->name('payment.method');
         Route::post('/subscribe/{subscription}', 'subscribe')->name('subscribe');
         Route::post('/cancel/{plan?}', 'unsubscibe')->name('cancel');
         Route::post('upgrade/{plan}', 'upgrade')->name('upgrade');
-    });
+    });*/
 });
+

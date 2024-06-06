@@ -1,14 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\SubscripctionPlanController;
+use App\Http\Controllers\SubscriptionPlanController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    SubscriptionController,
-    StripeWebhookController,
-    LoginController,
-    SubscriptionPlanController,
-    SubscripctionPlanController,
-    
-};
+
 
 use Illuminate\Support\Facades\{Auth};
 use App\Models\User;
@@ -33,15 +30,15 @@ Route::get('/', function () {
 });
 // Route::post('stripe/webhook', 'StripeWebhookController@handleWebhook')->name('cashier.webhook')->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
 Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])
-->name('cashier.webhook')
-->middleware(WithoutMiddleware::class);
+->name('cashier.webhook');
+// ->middleware(WithoutMiddleware::class);
 
 // Route::post('subscription-plan', 'SubscriptionController@store')->name('subscriptionplan');
 // Route::post('subscribeplan', 'SubscriptionController@buyPlan')->name('subscribe');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::middleware(['auth'])->group(function () {
     //Your routes here
-    
+
     // Route::get('subscription-createpage', [SubscriptionPlanController::class, 'CreateplanPage'])->name('subscription.createpage');
     Route::get('subscription-createpage', [SubscriptionPlanController::class, 'subscriptionList'])->name('subscription.createpage');
 
@@ -49,15 +46,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('subscribeplan', [SubscriptionPlanController::class, 'buyPlan'])->name('subscribe');
 
     // Route for SubscriptionPlan
-    Route::prefix('/subscription')->name("subscriptions.")->controller(SubscripctionPlanController::class)->group(function () {
-        Route::get('list', 'subscriptionList')->name('list');
-        Route::any('add/{id?}', 'store')->name('add');
+    Route::prefix('subscription')->name("subscriptions.")->controller(SubscripctionPlanController::class)->group(function () {
+        Route::get('/list', 'subscriptionList')->name('list');
+        Route::any('/add/{id?}', 'store')->name('add');
         // Route::post('payment', 'paymentmethod')->name('payment');
         Route::post('/delete', 'delete')->name('delete');
-        Route::match(['get', 'post'
-        ], '/search', 'searchData')->name('search');
+        Route::match(['get', 'post'], '/search', 'searchData')->name('search');
         Route::post('/statusupdate', 'updateStatus')->name('status');
+        Route::get('/subscription-plans', 'SubscriptionPlans')->name('plans');
     });
-
 });
 

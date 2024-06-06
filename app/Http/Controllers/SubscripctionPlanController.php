@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 // namespace App\Http\Controllers\Common;
-// use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\{User, UserDetail, SubscriptionPlan, Subscription};
 use Illuminate\Support\Facades\{Hash, Validator, Auth};
 use App\Http\Traits\SubscriptionTrait;
@@ -17,11 +17,18 @@ class SubscripctionPlanController extends Controller
     use SubscriptionTrait;
     //
     public function subscriptionList(Request $request)
-    {   
+    {
         $user = auth()->user();
         $id = $user->id;
         $users = SubscriptionPlan::search($request)->orderByDesc('created_at')->paginate(config('constants.PAGINATION_NUMBER'));
         return view('admin.subscriptionplan.subscription', compact('users'));
+    }
+    // Buy plan
+    public function SubscriptionPlans(){
+        $plans = SubscriptionPlan::active()->get();
+        dd($plans);
+
+        return view("", compact('plans'));
     }
 
     // function for admin only gives subscription table data
@@ -37,7 +44,7 @@ class SubscripctionPlanController extends Controller
     {
         try {
             if ($request->method() == 'GET' && $request->subs_ID) {
-    
+
                 $planDetails = SubscriptionPlan::find($request->subs_ID);
                 return response()->json([
                     'status'    =>  true,
@@ -53,7 +60,7 @@ class SubscripctionPlanController extends Controller
             }
 
             // Validation rules
-          
+
             $id = request()->input('subs_id', null);
             if ($id) {
                 // Log::info($request->toArray());

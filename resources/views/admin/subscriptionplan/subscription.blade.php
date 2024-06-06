@@ -9,7 +9,7 @@
     <div class="db-heading-bx">
         <h2>Subscription Management</h2>
         <div class="right-db-head">
-            
+
             <a href="#" type="button" class="button primary-btn" data-bs-toggle="modal"
                 data-bs-target="#subscriptionModal"><i class="fa-solid fa-plus"></i>Add subscription
             </a>
@@ -95,21 +95,24 @@
                                                 data-id="{{ $details->secure_id }}" data-url="{{ route('users.delete') }}"
                                                 onclick="Delete(this)" style="color: #FD5C5C;"></i>
                                         </div>
-                                        
-                                        {{-- <div class="table-data edit-user" >
-                                            <i class="fa-solid fa-pencil"></i>
-                                        </div> --}}
+
                                         <div class="table-data edit-user" data-subscription-id="{{ $details->id }}"  data-title="View order" data-bs-toggle="tooltip" data-bs-original-title="View" data-bs-placement="top">
                                             <i class="fa-solid fa-pencil" data-title="View order"></i>
+                                        </div>
+                                        {{-- Buy Plan --}}
+
+                                        <div class="table-data " data-bs-toggle="tooltip" data-bs-original-title="Buy Plan" data-bs-placement="top">
+                                            <a href="{{ route('subscriptions.plans') }}">
+                                                <i class="fa fa-address-card" style="color:red"></i>
+                                            </a>
+
+
                                         </div>
 
                                         {{-- <div class="table-data user-data" data-subscription-id="{{ $details->id }}"  data-title="View order" data-bs-toggle="tooltip" data-bs-original-title="View" data-bs-placement="top">
                                             <i class="fa fa-eye edit-record" data-title="View order"></i>
                                         </div> --}}
 
-                                        {{-- <a href="" class="table-edit" data-user-id="{{ $details->id }}">
-                                            <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#dispatcherEdit"></i>
-                                        </a> --}}
                                     </div>
                                 </td>
 
@@ -144,7 +147,7 @@
         // subscription.js
         // previous code
         $(document).ready(function() {
-            
+
             $.validator.addMethod("decimalMaxTwo", function(value, element) {
                 return /^\d+(\.\d{1,2})?$/.test(value);
                 }, "Please enter a valid number with maximum two decimal places.");
@@ -160,34 +163,34 @@
                 }
             });
 
-            // $.validator.addMethod("decimalMaxTwo", function(value, element) {
-            //     return /^\d+(\.\d{1,2})?$/.test(value);
-            //     }, "Please enter a valid number with maximum two decimal places.");
+            /*$.validator.addMethod("decimalMaxTwo", function(value, element) {
+                return /^\d+(\.\d{1,2})?$/.test(value);
+                }, "Please enter a valid number with maximum two decimal places.");
 
-            //     $.validator.addMethod("requiredSummernote", function() {
-            //         return !($("#summernote").summernote('isEmpty'));
-            //     }, 'Summernote field is required');
+                $.validator.addMethod("requiredSummernote", function() {
+                    return !($("#summernote").summernote('isEmpty'));
+                }, 'Summernote field is required');
 
-            // var validator = $("#addSubscriptionForm").validate({
-            //     ignore:':hidden:not(#summernote)',
-            //     rules: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendRules()) }},
-            //     messages: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendMessages()) }},
-            //     submitHandler: function(form) {
-            //         alert('here');
-            //         submit_ajax_form(form).then(function() {
-            //             console.log("LAST SUCCESS");
-            //         }, function() {
-            //             console.log("LAST ERROR");
-            //         });
-            //     },
-            //     errorPlacement: function (label, element) {
-            //          if( jQuery(element).hasClass('summernote-textarea') ){
-            //             label.insertAfter( $(element).parent() )
-            //         } else {
-            //             label.insertAfter(element)
-            //         }
-            //     }
-            // });
+                var validator = $("#addSubscriptionForm").validate({
+                ignore:':hidden:not(#summernote)',
+                rules: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendRules()) }},
+                messages: {{ Js::from(App\Http\Requests\SubscriptionRequest::frontendMessages()) }},
+                submitHandler: function(form) {
+                    alert('here');
+                    submit_ajax_form(form).then(function() {
+                        console.log("LAST SUCCESS");
+                    }, function() {
+                        console.log("LAST ERROR");
+                    });
+                },
+                errorPlacement: function (label, element) {
+                     if( jQuery(element).hasClass('summernote-textarea') ){
+                        label.insertAfter( $(element).parent() )
+                    } else {
+                        label.insertAfter(element)
+                    }
+                }
+            }); */
 
             // Fetch Data for edit
             $('.edit-user').on('click', function(event) {
@@ -203,7 +206,7 @@
                         .find(".ajax-submit-button").data("update-text"));
                     $('#subscriptionModal').modal('show');
                 })
-                
+
             });
             // View Data
 
@@ -220,7 +223,7 @@
                         .find(".ajax-submit-button").data("update-text"));
                     $('#viewsubscriptiontModal').modal('show');
                 })
-                
+
             });
         });
     </script>

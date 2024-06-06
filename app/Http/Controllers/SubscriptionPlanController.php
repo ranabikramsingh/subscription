@@ -23,7 +23,7 @@ class SubscriptionPlanController extends Controller
         $users = SubscriptionPlan::paginate(config('constants.PAGINATION_NUMBER'));
         return view('auth.subscriptionplan', compact('users'));
     }*/
-  
+
     // listing
     public function subscriptionList(Request $request)
     {
@@ -33,7 +33,7 @@ class SubscriptionPlanController extends Controller
         $users = SubscriptionPlan::paginate(config('constants.PAGINATION_NUMBER'));
         return view('admin.subscriptionplan.subscription', compact('users'));
     }
-    // Add/Update 
+    // Add/Update
     public function store($request, SubscriptionPlan $id = null)
     {
         // @dd($request->subs_ID);
@@ -58,7 +58,7 @@ class SubscriptionPlanController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
-            
+
             // Return validation errors
             // return response()->json($validator->errors(), 422);
             // return redirect()->back()->withErrors($validator)->first();
@@ -110,7 +110,6 @@ class SubscriptionPlanController extends Controller
                     // return view('auth.subscriptionplan')->with('successMessage', 'Add Success Plan');
                     return redirect()->route('subscription.createpage')->with('successMessage', 'Add Success Plan');
 
-
                 }
             }
         } catch (\Exception $e) {
@@ -125,7 +124,7 @@ class SubscriptionPlanController extends Controller
             */
             $errorMessage = $e->getMessage();
             return view('auth.subscriptionplan', compact('errorMessage'));
-            
+
         }
     }
 }
