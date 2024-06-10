@@ -38,12 +38,15 @@ Route::post('stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::middleware(['auth'])->group(function () {
     //Your routes here
-
+    Route::get('/dashboard', function () {
+        // return view('welcome');
+        return view('dashboard');;
+    });
     // Route::get('subscription-createpage', [SubscriptionPlanController::class, 'CreateplanPage'])->name('subscription.createpage');
-    Route::get('subscription-createpage', [SubscriptionPlanController::class, 'subscriptionList'])->name('subscription.createpage');
+    // Route::get('subscription-createpage', [SubscriptionPlanController::class, 'subscriptionList'])->name('subscription.createpage');
 
-    Route::match(['get', 'post'], 'subscription-create', [SubscriptionPlanController::class, 'store'])->name('subscription.create');
-    Route::post('subscribeplan', [SubscriptionPlanController::class, 'buyPlan'])->name('subscribe');
+    // Route::match(['get', 'post'], 'subscription-create', [SubscriptionPlanController::class, 'store'])->name('subscription.create');
+    // Route::post('subscribeplan', [SubscriptionPlanController::class, 'buyPlan'])->name('subscribe');
 
     // Route for SubscriptionPlan
     Route::prefix('subscription')->name("subscriptions.")->controller(SubscripctionPlanController::class)->group(function () {
@@ -54,6 +57,15 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['get', 'post'], '/search', 'searchData')->name('search');
         Route::post('/statusupdate', 'updateStatus')->name('status');
         Route::get('/subscription-plans', 'SubscriptionPlans')->name('plans');
+        Route::get('/payment-method/{id?}', 'paymentMethod')->name('payment.method');
+        Route::post('/subscribe/{subscription}', 'subscribe')->name('subscribe'); //if free
+        Route::post('upgrade/{plan}', 'upgrade')->name('upgrade');  // not free
     });
+
+    // Route for orders list
+    // Route::prefix('subscription_record')->controller(SubscripctionPlanController::class)->name("subscription_record.")->group(function () {
+    //     Route::get('list', 'subscriptionRecord')->name('list');
+
+    // });
 });
 

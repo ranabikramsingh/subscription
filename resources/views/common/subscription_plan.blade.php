@@ -24,7 +24,7 @@
             <div class="subscription-plan-wrapper">
                 <div class="Page-heading-box subscription-heading-box">
                     <h2>Choose a plan right for you</h2>
-                    <p>Get basic plan to optimize you lead generation process</p>
+                    {{-- <p>Get basic plan to optimize you lead generation process</p> --}}
                 </div>
                 <div class="sub-main-wrapper">
                     @foreach($plans as $plan)
@@ -46,7 +46,7 @@
     <script src="{{ asset('assets/js/common-functions.js') }}"></script>
     <script src="{{ asset('assets/js/common-jquery.js') }}"></script>
     <script src="{{ asset('js/iziToast.js') }}"></script>
-    @include('vendor.lara-izitoast.toast')
+    {{-- @include('vendor.lara-izitoast.toast') --}}
     @stack('js')
 
 </body>

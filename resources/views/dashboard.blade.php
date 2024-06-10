@@ -23,8 +23,8 @@
 <body class="antialiased">
     <h2>Welcome to my page</h2>
     <div class="button-container">
-        <button><a href="{{ route('subscription.createpage') }}">Create Plan</a></button>
-        <button><a href="{{ route('subscription.createpage') }}">Buy Plan</a></button>
+        <button><a href="{{ route('subscriptions.list') }}">Create Plan</a></button>
+        <button><a href="{{ route('subscriptions.list') }}">Buy Plan</a></button>
     </div>
     @if(session('error'))
         <div class="alert alert-danger">

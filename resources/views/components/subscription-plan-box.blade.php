@@ -47,7 +47,7 @@
     </div>
 </div>
 <div class="sub-btn-bx">
-    <a href="{{ route('subscription.payment.method',[$plan->secure_id ]) }}" class="button primary-btn full-btn">Buy now</a>
+    <a href="{{ route('subscriptions.payment.method',[$plan->secure_id ]) }}" class="button primary-btn full-btn">Buy now</a>
 </div>
 </div>
 @endif

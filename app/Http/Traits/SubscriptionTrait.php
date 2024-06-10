@@ -15,7 +15,7 @@ use Laravel\Cashier\Exceptions\IncompletePayment;
 trait SubscriptionTrait
 {
     use StripeTrait;
-
+    //Add plan
     private function addSubscription(Request $request)
     {
         try {
@@ -38,10 +38,10 @@ trait SubscriptionTrait
             throw new Exception($th->getMessage());
         }
     }
-    
-    // call from subbscripctionPlanController for update plan
+
+    // call from subbscripctionPlanController for update plan price and other data ..by admin
     private function updateSubscription(Request $request,  $id)
-    {
+    {   @dd( $request);
         try {
             $SubscriptionPlan = SubscriptionPlan::findSecureOrFail($id);
             $product = $this->updateProduct($request, $SubscriptionPlan);
@@ -76,13 +76,17 @@ trait SubscriptionTrait
 
     private function createSubscription($request, $user, $plan)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try {
-            $user->createOrGetStripeCustomer();
-            $user->syncStripeCustomerDetails();
+            $user->createOrGetStripeCustomer();  // default function of stripe it isuse to save stripe_id in user table and fetch data
+
+            $user->syncStripeCustomerDetails();  // save data in stripe
             $paymentMethod = $user->addPaymentMethod($request->payment_method);
+            dd($paymentMethod);
             $subscribe = $user->newSubscription($plan->name)
                 ->meteredPrice($plan->stripe_price_id);
+
 
             if (!is_null($plan->trial_days) && $plan->trial_days > 0) {
                 $subscribe = $subscribe->trialDays($plan->trial_days);
@@ -132,6 +136,7 @@ trait SubscriptionTrait
 
     private function subscriptionUpdate($request, $plan, $product)
     {
+
         try {
             $plan->update([
                 'name' => $request->name,
@@ -152,7 +157,7 @@ trait SubscriptionTrait
         }
     }
 
-
+    // Subscribe plan card payment
     private function upgradeSubscription(Request $request, User $user, SubscriptionPlan $plan)
     {
         try {

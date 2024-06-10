@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Exception;
 
 trait StripeTrait
-{   
-    // 
+{
+    //
     private function setupStripe()
     {
         return new \Stripe\StripeClient(config('cashier.secret')); // create config file
     }
+    // Create Price and Product id
     public function createPrice(Request $request)
     {
         // @dd($request);
